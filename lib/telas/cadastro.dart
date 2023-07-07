@@ -6,18 +6,14 @@ class Porfil extends StatefulWidget {
   final String title;
 
   @override
-  State<Porfil> createState() => _porfilState();
+  State<Porfil> createState() => _PorfilState();
 }
 
-class _porfilState extends State<Porfil> {
-  void abelha(a) {
-    print("object");
-  }
-
-  final TextEditingController _desccurso =
-      TextEditingController(text: "escolha");
+class _PorfilState extends State<Porfil> {
+  final TextEditingController _desccurso = TextEditingController();
   final TextEditingController _cargahoracurso = TextEditingController();
-  final TextEditingController _modalidade = TextEditingController();
+  final TextEditingController _modalidade =
+      TextEditingController(text: "escolha um");
   final TextEditingController _eixo = TextEditingController();
 
   @override
@@ -40,10 +36,13 @@ class _porfilState extends State<Porfil> {
                 ),
                 TextFormField(
                   controller: _desccurso,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(color: Colors.blue)),
                       labelText: "descrição",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.text_snippet)),
+                      prefixIcon: const Icon(Icons.text_snippet)),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 7),
@@ -51,60 +50,67 @@ class _porfilState extends State<Porfil> {
                 TextFormField(
                   controller: _cargahoracurso,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       labelText: "cargahorária",
-                      border: UnderlineInputBorder(),
-                      prefixIcon: Icon(Icons.av_timer)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(color: Colors.blue)),
+                      prefixIcon: const Icon(Icons.av_timer)),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 7),
                 ),
-                Row(
-                  children: [
-                    Column(
-                      children: [Text(_modalidade.text)],
+
+                DropdownButton(
+                  value: _modalidade.text,
+                  items: const [
+                    DropdownMenuItem(
+                      value: "escolha um",
+                      child: Text("escolha um"),
                     ),
-                    Column(
-                      children: [
-                        DropdownButton(
-                          items: const [
-                            DropdownMenuItem(
-                                value: "Qualificação",
-                                child: Text("Qualificação")),
-                            DropdownMenuItem(
-                                value: "Aperfeiçoamento",
-                                child: Text("Aperfeiçoamento")),
-                            DropdownMenuItem(
-                                value: "Técnico", child: Text("Técnico")),
-                            DropdownMenuItem(
-                                value: "Graduação", child: Text("Graduação")),
-                            DropdownMenuItem(
-                                value: "Pós-Graduação",
-                                child: Text("Pós-Graduação")),
-                          ],
-                          onChanged: (a) {
-                            setState(() {
-                              _modalidade.text = a!;
-                              print(_modalidade.text);
-                            });
-                          },
-                          autofocus: true,
-                        ),
-                      ],
-                    )
+                    DropdownMenuItem(
+                        value: "Qualificação", child: Text("Qualificação")),
+                    DropdownMenuItem(
+                        value: "Aperfeiçoamento",
+                        child: Text("Aperfeiçoamento")),
+                    DropdownMenuItem(value: "Técnico", child: Text("Técnico")),
+                    DropdownMenuItem(
+                        value: "Graduação", child: Text("Graduação")),
+                    DropdownMenuItem(
+                        value: "Pós-Graduação", child: Text("Pós-Graduação")),
                   ],
+                  onChanged: (a) {
+                    setState(() {
+                      _modalidade.text = a!;
+                      // ignore: avoid_print
+                      print(a);
+                    });
+                  },
+                  autofocus: true,
                 ),
 
                 const Padding(
                   padding: EdgeInsets.only(top: 7),
                 ),
                 TextFormField(
+                  validator: (valor) {
+                    if (valor!.isEmpty) {
+                      return "a";
+                    }
+                    return null;
+                  },
                   controller: _eixo,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       labelText: "eixo",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.widgets_outlined)),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(color: Colors.blue)),
+                      prefixIcon: const Icon(Icons.widgets_outlined)),
                 ),
+                ElevatedButton(
+                    onPressed: () {}, child: const Icon(Icons.add_box_rounded))
                 // DropdownButton(
                 //   items: const [
                 //     DropdownMenuItem(child: Text("data")),
