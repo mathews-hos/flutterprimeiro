@@ -15,7 +15,7 @@ class _PorfilState extends State<Porfil> {
   final TextEditingController _desccurso = TextEditingController();
   final TextEditingController _cargahoracurso = TextEditingController();
   final TextEditingController _modalidade =
-      TextEditingController(text: "escolha um");
+      TextEditingController(text: "Escolha um");
   final TextEditingController _eixo = TextEditingController();
 
   @override
@@ -41,7 +41,7 @@ class _PorfilState extends State<Porfil> {
                     TextFormField(
                       validator: (valor) {
                         if (valor!.isEmpty) {
-                          return "insira a descrição do curso";
+                          return "Insira a descrição do curso";
                         }
                         return null;
                       },
@@ -51,7 +51,7 @@ class _PorfilState extends State<Porfil> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: const BorderSide(color: Colors.blue)),
-                          labelText: "descrição",
+                          labelText: "Descrição",
                           prefixIcon: const Icon(Icons.text_snippet)),
                     ),
                     const Padding(
@@ -60,36 +60,41 @@ class _PorfilState extends State<Porfil> {
                     TextFormField(
                       validator: (valor) {
                         if (valor!.isEmpty) {
-                          return "insira a carga horária do curso";
+                          return "Insira a carga horária do curso";
+                        } else if (int.tryParse(valor) == null) {
+                          return "Insira apenas números";
                         }
                         return null;
                       },
                       controller: _cargahoracurso,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          labelText: "cargahorária",
+                          suffixText: "H",
+                          labelText: "Carga horária",
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: const BorderSide(color: Colors.blue)),
-                          prefixIcon: const Icon(Icons.av_timer)),
+                          prefixIcon: const Icon(Icons.timelapse)),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 7),
                     ),
 
                     DropdownButtonFormField(
+                      decoration:
+                          InputDecoration(border: const OutlineInputBorder()),
                       validator: (value) {
-                        if (value == "escolha um") {
-                          return "escolha uma modalidade";
+                        if (value == "Escolha um") {
+                          return "Escolha uma modalidade";
                         }
                         return null;
                       },
                       value: _modalidade.text,
                       items: const [
                         DropdownMenuItem(
-                          value: "escolha um",
-                          child: Text("escolha um"),
+                          value: "Escolha um",
+                          child: Text("Escolha um"),
                         ),
                         DropdownMenuItem(
                             value: "Qualificação", child: Text("Qualificação")),
@@ -119,13 +124,13 @@ class _PorfilState extends State<Porfil> {
                     TextFormField(
                       validator: (valor) {
                         if (valor!.isEmpty) {
-                          return "escolha um eixo";
+                          return "Escolha um eixo";
                         }
                         return null;
                       },
                       controller: _eixo,
                       decoration: InputDecoration(
-                          labelText: "eixo",
+                          labelText: "Eixo",
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
