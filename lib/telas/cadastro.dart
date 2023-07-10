@@ -82,8 +82,12 @@ class _PorfilState extends State<Porfil> {
                     ),
 
                     DropdownButtonFormField(
-                      decoration:
-                          InputDecoration(border: const OutlineInputBorder()),
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(color: Colors.blue)),
+                      ),
                       validator: (value) {
                         if (value == "Escolha um") {
                           return "Escolha uma modalidade";
